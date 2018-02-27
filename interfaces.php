@@ -1,5 +1,7 @@
 <?php
 
+
+
 class Goods
 {
 	protected $vendor;
