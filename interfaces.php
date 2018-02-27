@@ -1,25 +1,55 @@
 <?php
 
+interface Prices
+{
+	public function getPrice();
+	public function setPrice($price);
+}
 
+interface Transport
+{
+	public function startEngine();
+	public function stopEngine();
+}
 
-class Goods
+interface MediaDevice
+{
+	public function nextChannel();
+	public function prevChannel();
+}
+
+interface Tool
+{
+	public function switchIt();
+}
+
+interface Flying
+{
+	public function takeoff();	
+	public function landing();
+}
+
+class Goods implements Prices
 {
 	protected $vendor;
 	protected $name;
 	protected $price;
 	
-	public function __construct($vendor,$name,$price){
+	public function __construct($vendor,$name){
 		$this->vendor = $vendor;
 		$this->name = $name;
-		$this->price = $price;
 	}
 	
 	public function getPrice(){
 		return $this->price;
-	}	
+	}
+
+	public function setPrice($price){
+		$this->price = $price;
+	}		
 }
 
-class Car extends Goods
+class Car extends Goods implements Transport
 {
 	protected $color;
 	protected $velocity = 0;
@@ -31,21 +61,21 @@ class Car extends Goods
 	}
 	
 	public function startEngine(){
-		
+		echo 'Engine started';
 	}
 	
 	public function stopEngine() {
-		
+		echo 'Engine stoped';
 	}	
 }
 
-class Tv extends Goods
+class Tv extends Goods implements MediaDevice
 {
 	protected $screenSize;
 	protected $channel = 0;
 	
-	public function __construct($vendor,$name,$price,$screenSize){
-		parent::__construct($vendor,$name,$price);
+	public function __construct($vendor,$name,$screenSize){
+		parent::__construct($vendor,$name);
 		$this->screenSize = $screenSize;
 	}
 	
@@ -58,20 +88,25 @@ class Tv extends Goods
 	}
 }
 
-class Pen  extends Goods
+class Pen  extends Goods implements Tool
 {
 	protected $color;
 	protected $width;
+	protected $switched;
 	
-	public function __construct($vendor,$name,$price,$color,$width){
-		parent::__construct($vendor,$name,$price);
+	public function __construct($vendor,$name,$color,$width){
+		parent::__construct($vendor,$name);
 		$this->color = $color;
 		$this->width = $width;
 	}
 	
+	public function switchIt(){
+		$this->switched = !$this->switched;
+	}
+
 }
 
-class Bird
+class Bird implements Flying
 {
 	protected $weight;
 	protected $sex;
@@ -82,11 +117,11 @@ class Bird
 	}
 	
 	public function takeoff(){
-
+		echo 'Wow! I can fly!';
 	}
 	
 	public function landing(){
-
+		echo "I'am landing";
 	}
 }
 
