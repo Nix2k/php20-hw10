@@ -34,7 +34,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Катадог товаров</title>
+    <title>Каталог товаров</title>
 </head>
 <body>
 
